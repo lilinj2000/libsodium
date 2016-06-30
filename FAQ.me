@@ -9,3 +9,10 @@ home_3rd=~/3rd
 make 
 
 make install
+
+
+1. the autoconf version is lower, how?
+  replace the AC_PREREQ([2.65]) to lower version, AC_PREREQ([2.63]), in file configua.ac & m4/
+
+2. AS_VAR_APPEND is not defined?
+ replace [AS_VAR_APPEND([nxflags], [" $flag"])] to [ ] in configure.ac
