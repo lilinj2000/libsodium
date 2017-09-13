@@ -7,7 +7,7 @@
 #include "export.h"
 
 #ifdef __cplusplus
-# if __GNUC__
+# ifdef __GNUC__
 #  pragma GCC diagnostic ignored "-Wlong-long"
 # endif
 extern "C" {
@@ -29,6 +29,10 @@ size_t  crypto_secretbox_macbytes(void);
 SODIUM_EXPORT
 const char *crypto_secretbox_primitive(void);
 
+#define crypto_secretbox_MESSAGEBYTES_MAX crypto_secretbox_xsalsa20poly1305_MESSAGEBYTES_MAX
+SODIUM_EXPORT
+size_t crypto_secretbox_messagebytes_max(void);
+
 SODIUM_EXPORT
 int crypto_secretbox_easy(unsigned char *c, const unsigned char *m,
                           unsigned long long mlen, const unsigned char *n,
@@ -37,7 +41,8 @@ int crypto_secretbox_easy(unsigned char *c, const unsigned char *m,
 SODIUM_EXPORT
 int crypto_secretbox_open_easy(unsigned char *m, const unsigned char *c,
                                unsigned long long clen, const unsigned char *n,
-                               const unsigned char *k);
+                               const unsigned char *k)
+            __attribute__ ((warn_unused_result));
 
 SODIUM_EXPORT
 int crypto_secretbox_detached(unsigned char *c, unsigned char *mac,
@@ -52,7 +57,11 @@ int crypto_secretbox_open_detached(unsigned char *m,
                                    const unsigned char *mac,
                                    unsigned long long clen,
                                    const unsigned char *n,
-                                   const unsigned char *k);
+                                   const unsigned char *k)
+            __attribute__ ((warn_unused_result));
+
+SODIUM_EXPORT
+void crypto_secretbox_keygen(unsigned char k[crypto_secretbox_KEYBYTES]);
 
 /* -- NaCl compatibility interface ; Requires padding -- */
 
@@ -72,7 +81,9 @@ int crypto_secretbox(unsigned char *c, const unsigned char *m,
 SODIUM_EXPORT
 int crypto_secretbox_open(unsigned char *m, const unsigned char *c,
                           unsigned long long clen, const unsigned char *n,
-                          const unsigned char *k);
+                          const unsigned char *k)
+            __attribute__ ((warn_unused_result));
+
 #ifdef __cplusplus
 }
 #endif

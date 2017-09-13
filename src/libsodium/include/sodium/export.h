@@ -20,7 +20,11 @@
 #  endif
 # else
 #  if defined(__SUNPRO_C)
-#   define SODIUM_EXPORT __attribute__ __global
+#   ifndef __GNU_C__
+#    define SODIUM_EXPORT __attribute__ (visibility(__global))
+#   else
+#    define SODIUM_EXPORT __attribute__ __global
+#   endif
 #  elif defined(_MSG_VER)
 #   define SODIUM_EXPORT extern __declspec(dllexport)
 #  else
@@ -33,8 +37,11 @@
 # if defined(__INTEL_COMPILER) || defined(_MSC_VER)
 #  define CRYPTO_ALIGN(x) __declspec(align(x))
 # else
-#  define CRYPTO_ALIGN(x) __attribute__((aligned(x)))
+#  define CRYPTO_ALIGN(x) __attribute__ ((aligned(x)))
 # endif
 #endif
+
+#define SODIUM_MIN(A, B) ((A) < (B) ? (A) : (B))
+#define SODIUM_SIZE_MAX SODIUM_MIN(UINT64_MAX, SIZE_MAX)
 
 #endif
