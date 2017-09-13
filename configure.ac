@@ -1,4 +1,4 @@
-AC_PREREQ([2.65])
+AC_PREREQ([2.63])
 AC_INIT([libsodium],[1.0.14],
   [https://github.com/jedisct1/libsodium/issues],
   [libsodium],
@@ -142,6 +142,10 @@ AC_ARG_WITH(safecode,
     CFLAGS="$CFLAGS -fmemsafety"
   ])
 ])
+
+m4_ifndef([AS_VAR_APPEND],
+  [m4_define([AS_VAR_APPEND],
+      [$1=$$1$2])])
 
 AC_ARG_ENABLE(debug,
 [AS_HELP_STRING(--enable-debug,For maintainers only - please do not use)],

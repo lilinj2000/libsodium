@@ -2,7 +2,8 @@
 
 ./autogen.sh
 
-home_3rd=~/3rd
+node=`uname -n`
+home_3rd=~/3rd/${node}
 
 ./configure --prefix=$home_3rd/libsodium
 

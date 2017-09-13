@@ -9,7 +9,7 @@
 #serial 1
 
 AC_DEFUN([AX_CHECK_CATCHABLE_SEGV], [dnl
-    AC_PREREQ(2.64)
+    AC_PREREQ(2.63)
     AS_VAR_PUSHDEF([CACHEVAR], [ax_cv_check_[]_AC_LANG_ABBREV[]CATCHABLE_SEGV])dnl
     AC_CACHE_CHECK([whether segmentation violations can be caught when using the _AC_LANG compiler], CACHEVAR, [
         AC_RUN_IFELSE([
